@@ -51,11 +51,10 @@ jobs:
           working-directory: .
           args: --timeout 3m
   test:
-    name: Golang Unit Tests v${{ matrix.go }} (${{ matrix.os }})
+    name: Golang Unit Tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: ['1.18']
         os: [macos-11.0, ubuntu-18.04, windows-latest]
     steps:
       - uses: actions/checkout@v3.1.0
@@ -69,7 +68,7 @@ jobs:
           token: ${{ secrets.AVALANCHE_PAT }}
       - uses: actions/setup-go@v3.3.0
         with:
-          go-version: ${{ matrix.go }}
+          go-version-file: go.mod
           check-latest: true
           cache: true
       - name: change avalanchego dep
@@ -82,11 +81,10 @@ jobs:
       - run: ./scripts/build_test.sh
       - run: ./scripts/coverage.sh
   test-race:
-    name: Golang Unit Tests Race Detection v${{ matrix.go }} (${{ matrix.os }})
+    name: Golang Unit Tests Race Detection (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: ['1.18']
         os: [ubuntu-20.04]
     steps:
       - uses: actions/checkout@v3.1.0
@@ -100,7 +98,7 @@ jobs:
           token: ${{ secrets.AVALANCHE_PAT }}
       - uses: actions/setup-go@v3.3.0
         with:
-          go-version: ${{ matrix.go }}
+          go-version-file: go.mod
           check-latest: true
           cache: true
       - name: change avalanchego dep
@@ -112,11 +110,10 @@ jobs:
       - run: ./scripts/build.sh evm
       - run: ./scripts/build_test.sh -race
   e2e:
-    name: Golang E2E Tests v${{ matrix.go }} (${{ matrix.os }})
+    name: Golang E2E Tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        go: [ '1.18' ]
         os: [ ubuntu-20.04 ]
     steps:
       - uses: actions/checkout@v3.1.0
@@ -130,7 +127,7 @@ jobs:
           token: ${{ secrets.AVALANCHE_PAT }}
       - uses: actions/setup-go@v3.3.0
         with:
-          go-version: ${{ matrix.go }}
+          go-version-file: go.mod
           check-latest: true
           cache: true
       - name: change avalanchego dep
