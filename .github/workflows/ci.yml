@@ -21,7 +21,7 @@ on:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
       - name: check out ${{ github.event.inputs.avalanchegoRepo }} ${{ github.event.inputs.avalanchegoBranch }}
@@ -55,7 +55,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11.0, ubuntu-18.04, windows-latest]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
     steps:
       - uses: actions/checkout@v3.1.0
       - name: check out ${{ github.event.inputs.avalanchegoRepo }} ${{ github.event.inputs.avalanchegoBranch }}
@@ -81,11 +84,8 @@ jobs:
       - run: ./scripts/build_test.sh
       - run: ./scripts/coverage.sh
   test-race:
-    name: Golang Unit Tests Race Detection (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-20.04]
+    name: Golang Unit Tests Race Detection
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
       - name: check out ${{ github.event.inputs.avalanchegoRepo }} ${{ github.event.inputs.avalanchegoBranch }}
@@ -110,11 +110,8 @@ jobs:
       - run: ./scripts/build.sh evm
       - run: ./scripts/build_test.sh -race
   e2e:
-    name: Golang E2E Tests (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-20.04 ]
+    name: Golang E2E Tests
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.1.0
       - name: check out ${{ github.event.inputs.avalanchegoRepo }} ${{ github.event.inputs.avalanchegoBranch }}
