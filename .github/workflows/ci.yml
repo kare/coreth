@@ -50,6 +50,8 @@ jobs:
           version: v1.47
           working-directory: .
           args: --timeout 3m
+      - name: Run vet
+        run: go vet ./...
       - name: Run staticcheck
         uses: dominikh/staticcheck-action@v1.2.0
         continue-on-error: true
