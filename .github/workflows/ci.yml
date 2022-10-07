@@ -32,9 +32,11 @@ jobs:
           ref: ${{ github.event.inputs.avalanchegoBranch }}
           path: avalanchego
           token: ${{ secrets.AVALANCHE_PAT }}
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-go@v3.3.0
         with:
-          go-version: 1.18
+          go-version-file: go.mod
+          check-latest: true
+          cache: true
       - name: change avalanchego dep
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
@@ -65,9 +67,11 @@ jobs:
           ref: ${{ github.event.inputs.avalanchegoBranch }}
           path: avalanchego
           token: ${{ secrets.AVALANCHE_PAT }}
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-go@v3.3.0
         with:
           go-version: ${{ matrix.go }}
+          check-latest: true
+          cache: true
       - name: change avalanchego dep
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
@@ -94,9 +98,11 @@ jobs:
           ref: ${{ github.event.inputs.avalanchegoBranch }}
           path: avalanchego
           token: ${{ secrets.AVALANCHE_PAT }}
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-go@v3.3.0
         with:
           go-version: ${{ matrix.go }}
+          check-latest: true
+          cache: true
       - name: change avalanchego dep
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
@@ -122,9 +128,11 @@ jobs:
           ref: ${{ github.event.inputs.avalanchegoBranch }}
           path: avalanchego
           token: ${{ secrets.AVALANCHE_PAT }}
-      - uses: actions/setup-go@v1
+      - uses: actions/setup-go@v3.3.0
         with:
           go-version: ${{ matrix.go }}
+          check-latest: true
+          cache: true
       - name: change avalanchego dep
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
