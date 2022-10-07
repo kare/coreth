@@ -50,6 +50,14 @@ jobs:
           version: v1.47
           working-directory: .
           args: --timeout 3m
+      - name: Check source is Go fmted
+        run: diff -u <(gofmt -d ./) <(echo -n)
+      - name: Check source is Go fmt simplified
+        run: diff -u <(gofmt -s -d ./) <(echo -n)
+      - name: Check running go mod tidy doesn't generate changes
+        run: diff -u <(go mod tidy -v) <(echo -n)
+      - name: Check running go generate doesn't generate changes
+        run: diff -u <(go generate) <(git diff)
   test:
     name: Golang Unit Tests (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
